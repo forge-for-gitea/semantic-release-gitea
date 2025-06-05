@@ -1,1 +1,1 @@
-# Gitea plugin for Semantic Release
+# Semantic Release plugin for Gitea
