@@ -1,0 +1,12 @@
+{
+  "name": "@forge-for-gitea/semantic-release-gitea",
+  "description": "Semantic Release plugin for Gitea",
+  "version": "0.0.0-development",
+  "author": "rosven9856",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/forge-for-gitea/semantic-release-gitea.git"
+  },
+  "license": "MIT"
+}
