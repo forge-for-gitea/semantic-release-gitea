@@ -1,0 +1,8 @@
+.idea
+.metadata
+.plugins
+.settings
+.vscode
+.vs
+.env
+node_modules

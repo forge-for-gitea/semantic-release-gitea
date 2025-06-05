@@ -1,0 +1,27 @@
+on:
+  issues:
+    types:
+      - opened
+      - edited
+      - reopened
+
+  issue_comment:
+    types:
+      - created
+      - edited
+
+jobs:
+  send_telegram:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Github. Issue
+
+            Author: ${{ github.actor }}
+            Repository: ${{ github.repository }}
+
+            See changes: https://github.com/${{ github.repository }}/issues/${{ github.event.issue.number }}
