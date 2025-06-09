@@ -4,9 +4,23 @@
   "version": "0.0.0-development",
   "author": "rosven9856",
   "main": "index.js",
+  "engines": {
+    "node": ">=20.8.1"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/forge-for-gitea/semantic-release-gitea.git"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@semantic-release/error": "^4.0.0",
+    "aggregate-error": "^5.0.0"
+  },
+  "peerDependencies": {
+    "semantic-release": ">=20.1.0"
+  },
+  "files": [
+    "src",
+    "index.js"
+  ]
 }
