@@ -1,3 +1,5 @@
-release:
-  branches:
-    ["master", "main", "hotfix/ci-npm-package-publish"]
+plugins:
+  - "@semantic-release/commit-analyzer"
+  - "@semantic-release/release-notes-generator"
+  - "@semantic-release/npm"
+  - "@semantic-release/github"
