@@ -31,23 +31,23 @@ jobs:
             curl -sSL https://raw.githubusercontent.com/forge-for-gitea/template-semantic-release/refs/heads/main/package-lock.json > package-lock.json \
               && printf "download: %s\n" "package-lock.json"
           fi
-#      - name: copy config files
-#        run: |
-#          if [ ! -f ".releaserc.yaml" ]; then
-#
-#            if [ -d ".github" ]; then
-#              cp .github/semantic-release/.releaserc.yaml . \
-#                && printf "copied: %s\n" ".releaserc.yaml" \
-#                && exit 0;
-#            fi
-#
-#            if [ -d ".gitea" ]; then
-#              cp .gitea/semantic-release/.releaserc.yaml . \
-#                && printf "copied: %s\n" ".releaserc.yaml" \
-#                && exit 0;
-#            fi
-#
-#          fi
+      - name: copy config files
+        run: |
+          if [ ! -f ".releaserc.yaml" ]; then
+
+            if [ -d ".github" ]; then
+              cp .github/semantic-release/.releaserc.yaml . \
+                && printf "copied: %s\n" ".releaserc.yaml" \
+                && exit 0;
+            fi
+
+            if [ -d ".gitea" ]; then
+              cp .gitea/semantic-release/.releaserc.yaml . \
+                && printf "copied: %s\n" ".releaserc.yaml" \
+                && exit 0;
+            fi
+
+          fi
       - uses: cycjimmy/semantic-release-action@v4
         id: semantic-release
         with:
