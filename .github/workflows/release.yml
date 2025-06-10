@@ -6,11 +6,12 @@ on:
       - 'main'
       - 'master'
       - 'v*.*'
+      - 'hotfix/*'
     paths-ignore:
       - 'README.md'
       - 'CHANGELOG.md'
       - 'docs/**'
-      - '.github/**'
+#      - '.github/**'
 
 jobs:
   update-changelog:
@@ -30,23 +31,23 @@ jobs:
             curl -sSL https://raw.githubusercontent.com/forge-for-gitea/template-semantic-release/refs/heads/main/package-lock.json > package-lock.json \
               && printf "download: %s\n" "package-lock.json"
           fi
-      - name: copy config files
-        run: |
-          if [ ! -f ".releaserc.yaml" ]; then
-
-            if [ -d ".github" ]; then
-              cp .github/semantic-release/.releaserc.yaml . \
-                && printf "copied: %s\n" ".releaserc.yaml" \
-                && exit 0;
-            fi
-
-            if [ -d ".gitea" ]; then
-              cp .gitea/semantic-release/.releaserc.yaml . \
-                && printf "copied: %s\n" ".releaserc.yaml" \
-                && exit 0;
-            fi
-
-          fi
+#      - name: copy config files
+#        run: |
+#          if [ ! -f ".releaserc.yaml" ]; then
+#
+#            if [ -d ".github" ]; then
+#              cp .github/semantic-release/.releaserc.yaml . \
+#                && printf "copied: %s\n" ".releaserc.yaml" \
+#                && exit 0;
+#            fi
+#
+#            if [ -d ".gitea" ]; then
+#              cp .gitea/semantic-release/.releaserc.yaml . \
+#                && printf "copied: %s\n" ".releaserc.yaml" \
+#                && exit 0;
+#            fi
+#
+#          fi
       - uses: cycjimmy/semantic-release-action@v4
         id: semantic-release
         with:
@@ -60,14 +61,14 @@ jobs:
           echo "${{ steps.semantic-release.outputs.new_release_notes }}" >> CHANGELOG.md
       - run: git status
         if: steps.semantic-release.outputs.new_release_published == 'true'
-      - name: commit and push
-        if: steps.semantic-release.outputs.new_release_published == 'true'
-        run: |
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add CHANGELOG.md
-          git commit -m "docs(changelog): auto-update CHANGELOG.md"
-          git push
+#      - name: commit and push
+#        if: steps.semantic-release.outputs.new_release_published == 'true'
+#        run: |
+#          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+#          git config --local user.name "github-actions[bot]"
+#          git add CHANGELOG.md
+#          git commit -m "docs(changelog): auto-update CHANGELOG.md"
+#          git push
   release:
     needs:
       - update-changelog
@@ -110,6 +111,8 @@ jobs:
           fi
       - uses: cycjimmy/semantic-release-action@v4
         id: semantic-release
+        with:
+          dry_run: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
