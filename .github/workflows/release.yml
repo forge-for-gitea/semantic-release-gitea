@@ -19,6 +19,9 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PUSH_ACCESS_TOKEN }}
+      - run: git fetch && git pull
       - name: download npm files
         run: |
           if [ ! -f "package.json" ]; then
