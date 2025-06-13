@@ -11,6 +11,9 @@ export default async function verify (pluginConfig, context) {
     } = context;
     const errors = [];
 
+
+    logger.log('------------ test  ------------');
+
     // Throw any errors we accumulated during the validation
     if (errors.length > 0) {
         throw new AggregateError(errors);
