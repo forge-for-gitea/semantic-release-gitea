@@ -1,0 +1,2 @@
+plugins:
+  - "@forge-for-gitea/semantic-release-gitea"
