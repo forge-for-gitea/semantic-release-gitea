@@ -6,3 +6,5 @@
 .vs
 .env
 node_modules
+sandbox/!.gitkeep
+sandbox/*
