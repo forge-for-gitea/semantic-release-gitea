@@ -17,3 +17,13 @@
 
 
 
+# [1.1.0](https://github.com/forge-for-gitea/semantic-release-gitea/compare/v1.0.0...v1.1.0) (2025-09-19)
+
+
+### Features
+
+* repository access check ([c198ff6](https://github.com/forge-for-gitea/semantic-release-gitea/commit/c198ff6052b74e6044b4f8ff3152569ce8416174))
+
+
+
+
