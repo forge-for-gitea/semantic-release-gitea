@@ -1,13 +1,84 @@
-const AggregateError = require("aggregate-error");
+import AggregateError from 'aggregate-error';
+import { giteaApi } from 'gitea-js';
+import config from './utils/config.js';
+import parseGitUrl from './utils/parse-git-url.js';
 
 /**
  * A method to verify that the user has given us a slack webhook url to post to
  */
-module.exports = async (pluginConfig, context) => {
-    const { logger } = context;
+export default async function verify (pluginConfig, context) {
+    const {
+        env,
+        options: { repositoryUrl },
+        logger,
+    } = context;
     const errors = [];
+    const {giteaToken, giteaUrl, giteaApiPathPrefix} = config(pluginConfig, context);
 
-    // Throw any errors we accumulated during the validation
+    if (giteaToken === '') {
+        errors.push({
+            message: '`GITEA_TOKEN` is required',
+            details: '`GITEA_TOKEN` is required'
+        });
+    }
+
+    if (giteaUrl === '') {
+        errors.push({
+            message: '`GITEA_URL` is required',
+            details: '`GITEA_URL` is required'
+        });
+    }
+
+    try {
+        new URL(giteaUrl);
+    } catch (error) {
+        errors.push({
+            message: '`GITEA_URL` is not a valid URL',
+            details: '`GITEA_URL` is not a valid URL. Error: ' + error.message
+        });
+    }
+
+    const {owner, repo} = parseGitUrl(repositoryUrl);
+
+    if (!owner || !repo) {
+        errors.push({
+            message: 'The git repository URL is not a valid Gitea URL.',
+            details: `The **semantic-release** \`repositoryUrl\` option must a valid Git URL with the format \`<Gitea_URL>/<owner>/<repo>.git\`.
+
+By default the \`repositoryUrl\` option is retrieved from the \`repository\` property of your \`package.json\` or the [git origin url](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes) of the repository cloned by your CI environment.`,
+        });
+    }
+
+    const api = giteaApi(giteaUrl, {
+        token: giteaToken
+    });
+
+    if (errors.length > 0) {
+        throw new AggregateError(errors);
+    }
+
+    api.repos.repoGet(owner, repo).then((response) => {
+        return response.data;
+    }, (error) => {
+        if (error instanceof Response) {
+            throw new Error(`Request Error: ${error.status} ${error.statusText}`);
+        }
+
+        throw error;
+    }).then((data) => {
+        if (data?.permissions?.push !== true) {
+            throw new Error(`Credentials Error: Not permissions to push to the repository`);
+        }
+    }, (error) => {
+        throw error;
+    }).catch(function (error) {
+        errors.push({
+            message: 'API Error',
+            details: 'API Error: ' + error.message
+        });
+        throw new AggregateError(errors);
+    });
+
     if (errors.length > 0) {
         throw new AggregateError(errors);
     }
