@@ -5,7 +5,6 @@ dotenv.config();
 
 let verified;
 
-
 export async function verifyConditions(pluginConfig, context) {
     await verifyGitea(pluginConfig, context);
     verified = true;

@@ -34,7 +34,7 @@ export default async function verify (pluginConfig, context) {
     } catch (error) {
         errors.push({
             message: '`GITEA_URL` is not a valid URL',
-            details: '`GITEA_URL` is not a valid URL. Error: ' . error.message
+            details: '`GITEA_URL` is not a valid URL. Error: ' + error.message
         });
     }
 
@@ -60,12 +60,23 @@ By default the \`repositoryUrl\` option is retrieved from the \`repository\` pro
     api.repos.repoGet(owner, repo).then((response) => {
         return response.data;
     }, (error) => {
-        console.log(error);
+        if (error instanceof Response) {
+            throw new Error(`Request Error: ${error.status} ${error.statusText}`);
+        }
+
+        throw error;
     }).then((data) => {
-        console.log(data);
-        console.log(data.permissions.push);
+        if (data?.permissions?.push !== true) {
+            throw new Error(`Credentials Error: Not permissions to push to the repository`);
+        }
     }, (error) => {
-        console.log(error);
+        throw error;
+    }).catch(function (error) {
+        errors.push({
+            message: 'API Error',
+            details: 'API Error: ' + error.message
+        });
+        throw new AggregateError(errors);
     });
 
     if (errors.length > 0) {
