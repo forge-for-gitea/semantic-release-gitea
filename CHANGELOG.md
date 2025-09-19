@@ -27,3 +27,13 @@
 
 
 
+## [1.1.1](https://github.com/forge-for-gitea/semantic-release-gitea/compare/v1.1.0...v1.1.1) (2025-09-19)
+
+
+### Bug Fixes
+
+* test build ([a4bc150](https://github.com/forge-for-gitea/semantic-release-gitea/commit/a4bc1505479174dabfac0d1eb94444aac7bd42ef))
+
+
+
+
