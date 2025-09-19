@@ -28,8 +28,8 @@ git pull origin main
 cat << EOF > package.json
 {
   "devDependencies": {
-    "semantic-release": "^24.2.5",
-    "@forge-for-gitea/semantic-release-gitea": "^1.0.0"
+    "semantic-release": "^24.2.8",
+    "@forge-for-gitea/semantic-release-gitea": "^1.1.0"
   }
 }
 EOF
