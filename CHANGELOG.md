@@ -37,3 +37,13 @@
 
 
 
+# [1.2.0](https://github.com/forge-for-gitea/semantic-release-gitea/compare/v1.1.1...v1.2.0) (2025-09-25)
+
+
+### Features
+
+* create  function lifecycle ([d62eb1b](https://github.com/forge-for-gitea/semantic-release-gitea/commit/d62eb1bf2690500d60bf647a8b559567cdfdbef7))
+
+
+
+
