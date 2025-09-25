@@ -29,7 +29,7 @@ cat << EOF > package.json
 {
   "devDependencies": {
     "semantic-release": "^24.2.8",
-    "@forge-for-gitea/semantic-release-gitea": "^1.1.0"
+    "@forge-for-gitea/semantic-release-gitea": "^1.2"
   }
 }
 EOF

@@ -1,16 +1,18 @@
 import AggregateError from 'aggregate-error';
-import { giteaApi } from 'gitea-js';
+import {giteaApi} from 'gitea-js';
 import config from './utils/config.js';
 import parseGitUrl from './utils/parse-git-url.js';
 
 export default async (pluginConfig, context) => {
     const {
-        env,
-        options: { repositoryUrl },
+        cwd,
+        options: {repositoryUrl},
+        branch,
+        nextRelease: {name, gitTag, notes},
         logger,
     } = context;
     const errors = [];
-    const {giteaToken, giteaUrl, giteaApiPathPrefix} = config(pluginConfig, context);
+    const {giteaToken, giteaUrl, giteaApiPathPrefix, assets} = config(pluginConfig, context);
 
     if (giteaToken === '') {
         errors.push({
@@ -54,7 +56,17 @@ By default the \`repositoryUrl\` option is retrieved from the \`repository\` pro
         throw new AggregateError(errors);
     }
 
-    await api.repos.repoGet(owner, repo).then((response) => {
+    const release = {
+        body: notes,
+        draft: false,
+        name: name,
+        prerelease: false,
+        tag_name: gitTag,
+        target_commitish: branch.name,
+    };
+
+    await api.repos.repoCreateRelease(owner, repo, release)
+    .then((response) => {
         return response.data;
     }, (error) => {
         if (error instanceof Response) {
@@ -63,9 +75,7 @@ By default the \`repositoryUrl\` option is retrieved from the \`repository\` pro
 
         throw error;
     }).then((data) => {
-        if (data?.permissions?.push !== true) {
-            throw new Error(`Credentials Error: Not permissions to push to the repository`);
-        }
+        return {url: data.url, name: name};
     }, (error) => {
         throw error;
     }).catch(function (error) {
@@ -79,4 +89,6 @@ By default the \`repositoryUrl\` option is retrieved from the \`repository\` pro
     if (errors.length > 0) {
         throw new AggregateError(errors);
     }
+
+    return {url: '', name: ''};
 };
