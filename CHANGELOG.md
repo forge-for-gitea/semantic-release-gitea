@@ -1,3 +1,33 @@
+# [1.2.0](https://github.com/forge-for-gitea/semantic-release-gitea/compare/v1.1.1...v1.2.0) (2025-09-25)
+
+
+### Features
+
+* create  function lifecycle ([d62eb1b](https://github.com/forge-for-gitea/semantic-release-gitea/commit/d62eb1bf2690500d60bf647a8b559567cdfdbef7))
+
+
+
+
+## [1.1.1](https://github.com/forge-for-gitea/semantic-release-gitea/compare/v1.1.0...v1.1.1) (2025-09-19)
+
+
+### Bug Fixes
+
+* test build ([a4bc150](https://github.com/forge-for-gitea/semantic-release-gitea/commit/a4bc1505479174dabfac0d1eb94444aac7bd42ef))
+
+
+
+
+# [1.1.0](https://github.com/forge-for-gitea/semantic-release-gitea/compare/v1.0.0...v1.1.0) (2025-09-19)
+
+
+### Features
+
+* repository access check ([c198ff6](https://github.com/forge-for-gitea/semantic-release-gitea/commit/c198ff6052b74e6044b4f8ff3152569ce8416174))
+
+
+
+
 # 1.0.0 (2025-06-11)
 
 
@@ -13,36 +43,6 @@
 ### Features
 
 * stub package ([a618b39](https://github.com/forge-for-gitea/semantic-release-gitea/commit/a618b39abcebed2c7b1c4db3e871d76cb1f5a6b5))
-
-
-
-
-# [1.1.0](https://github.com/forge-for-gitea/semantic-release-gitea/compare/v1.0.0...v1.1.0) (2025-09-19)
-
-
-### Features
-
-* repository access check ([c198ff6](https://github.com/forge-for-gitea/semantic-release-gitea/commit/c198ff6052b74e6044b4f8ff3152569ce8416174))
-
-
-
-
-## [1.1.1](https://github.com/forge-for-gitea/semantic-release-gitea/compare/v1.1.0...v1.1.1) (2025-09-19)
-
-
-### Bug Fixes
-
-* test build ([a4bc150](https://github.com/forge-for-gitea/semantic-release-gitea/commit/a4bc1505479174dabfac0d1eb94444aac7bd42ef))
-
-
-
-
-# [1.2.0](https://github.com/forge-for-gitea/semantic-release-gitea/compare/v1.1.1...v1.2.0) (2025-09-25)
-
-
-### Features
-
-* create  function lifecycle ([d62eb1b](https://github.com/forge-for-gitea/semantic-release-gitea/commit/d62eb1bf2690500d60bf647a8b559567cdfdbef7))
 
 
 
