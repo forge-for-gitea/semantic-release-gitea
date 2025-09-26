@@ -22,17 +22,6 @@ jobs:
         with:
           token: ${{ secrets.GH_PUSH_ACCESS_TOKEN }}
       - run: git fetch && git pull
-      - name: download npm files
-        run: |
-          if [ ! -f "package.json" ]; then
-            curl -sSL https://raw.githubusercontent.com/forge-for-gitea/template-semantic-release/refs/heads/main/package.json > package.json \
-              && printf "download: %s\n" "package.json"
-          fi
-
-          if [ ! -f "package-lock.json" ]; then
-            curl -sSL https://raw.githubusercontent.com/forge-for-gitea/template-semantic-release/refs/heads/main/package-lock.json > package-lock.json \
-              && printf "download: %s\n" "package-lock.json"
-          fi
       - name: copy config files
         run: |
           if [ ! -f ".releaserc.yaml" ]; then
@@ -83,17 +72,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: git fetch && git pull
-      - name: download npm files
-        run: |
-          if [ ! -f "package.json" ]; then
-            curl -sSL https://raw.githubusercontent.com/forge-for-gitea/template-semantic-release/refs/heads/main/package.json > package.json \
-              && printf "download: %s\n" "package.json"
-          fi
-
-          if [ ! -f "package-lock.json" ]; then
-            curl -sSL https://raw.githubusercontent.com/forge-for-gitea/template-semantic-release/refs/heads/main/package-lock.json > package-lock.json \
-              && printf "download: %s\n" "package-lock.json"
-          fi
       - name: copy config files
         run: |
           if [ ! -f ".releaserc.yaml" ]; then
